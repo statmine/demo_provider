@@ -16,6 +16,11 @@ Start server
 nodejs server.js
 ```
 
+Update index of tables
+```
+nodejs update_index.js
+```
+
 
 Interface
 ---------
@@ -26,8 +31,8 @@ Interface
   returns the schema of the table in 
   [http://data.okfn.org/doc/tabular-data-package](http://data.okfn.org/doc/tabular-data-package)
   format. 
-- A GET on [http://localhost:8088/<tablename>/data](http://localhost:8088/<tablename>/data) 
+- A GET on [http://localhost:8088/\<tablename\>/data](http://localhost:8088/\<tablename\>/data) 
   returns the data in CSV format.
-- A POST on [http://localhost:8088/<tablename>/query](http://localhost:8088/<tablename>/query) 
+- A POST on [http://localhost:8088/\<tablename\>/query](http://localhost:8088/\<tablename\>/query) 
   returns a subset (as specified by the query) with schema.
 
