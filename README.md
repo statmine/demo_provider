@@ -22,7 +22,7 @@ Interface
 
 - A GET on [http://localhost:8088/tables](http://localhost:8088/tables) returns
   a list of tables. 
-- A GET on [http://localhost:8088/<tablename>/schema](http://localhost:8088/<tablename>/schema) 
+- A GET on [http://localhost:8088/\<tablename\>/schema](http://localhost:8088/\<tablename\>/schema) 
   returns the schema of the table in 
   [http://data.okfn.org/doc/tabular-data-package](http://data.okfn.org/doc/tabular-data-package)
   format. 
