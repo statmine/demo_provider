@@ -30,10 +30,16 @@ function complete_query(schema, query) {
 }
 
 // Filter schema using query: for categorical variables only select categories 
-// that will be returned in the resulting data set. 
+// that will be returned in the resulting data set; and remove non-selected
+// numerical (non-categorical) variables.
 //
 function filter_schema(schema, query) {
-  schema.fields = schema.fields.map(function(f) {
+  schema.fields = schema.fields.filter(function(f) {
+    // remove unselected non-categorical variables
+    if (f.categories) return true;
+    var q = find_name(query, f.name);
+    return q.selected;
+  }).map(function(f) {
     if (f.categories) {
       var q = find_name(query, f.name);
       f.categories = f.categories.filter(function(c) {
@@ -56,7 +62,7 @@ function filter_schema(schema, query) {
 
 // Filter data using query. 
 //
-function filter_data(data, query) {
+function filter_data(data, query, schema) {
   return data.filter(function(d) {
     var select = true
     for (var i = 0; i < query.length; ++i) {
@@ -79,6 +85,15 @@ function filter_data(data, query) {
       }
     }
     return select;
+  }).map(function(d) {
+    // remove non-selected non-categorical variables
+    for (var variable in d) {
+      if (d.hasOwnProperty(variable)) {
+        var variable_schema = find_name(schema.fields, variable);
+        if (!variable_schema) delete d[variable];
+      }
+    }
+    return d;
   });
 }
 
@@ -136,7 +151,7 @@ server.post('/table/:id/query', function(req, res, next) {
       csv_parse(data, {columns: true}, function(err, data) {
         if (err) return next(err);
 
-        data = filter_data(data, query);
+        data = filter_data(data, query, schema);
 
         // return data with schema
         res.header('Content-Type', 'application/json');
