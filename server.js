@@ -136,11 +136,11 @@ server.post('/table/:id/query', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   var query = req.body;
 
-  fs.readFile('data/' + req.params.id + '/datapackage.json', function(err, table_schema) {
+  fs.readFile('data/' + req.params.id + '/datapackage.json', function(err, table_meta) {
     if (err) return next(err);
 
-    var table_schema = JSON.parse(table_schema);
-    var schema = table_schema.resources[0].schema;
+    var table_meta = JSON.parse(table_meta);
+    var schema = table_meta.resources[0].schema;
 
     query = complete_query(schema, query);
     schema = filter_schema(schema, query);
