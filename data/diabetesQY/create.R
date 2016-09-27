@@ -15,3 +15,8 @@ data_q <- lapply(1:4, function(quarter){
   data
 })
 
+D <- 
+  do.call(bind_rows, data_q) %>% 
+  bind_rows(data) 
+
+write.csv(D, "data.csv", row.names = FALSE, quote = FALSE)
