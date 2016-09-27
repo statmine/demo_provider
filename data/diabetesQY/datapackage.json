@@ -11,7 +11,7 @@
             "schema": {
               "fields": [
                   {
-                          "name": "period",
+                          "name": "periode",
                           "title": "Periode",
                           "default": 2009,
                           "type": "date"
